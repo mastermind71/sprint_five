@@ -35,7 +35,7 @@ func (t Training) distance() float64 {
 func (t Training) meanSpeed() float64 {
 	// вставьте ваш код ниже
 	distance := t.distance()
-	durationInHours := t.Duration.Seconds() / 3600
+	durationInHours := t.Duration.Hours()
 	if durationInHours == 0 {
 		return 0
 	}
@@ -108,8 +108,8 @@ type Running struct {
 func (r Running) Calories() float64 {
 	// вставьте ваш код ниже
 	meanSpeed := r.distance()
-	durationInHours := r.Duration.Seconds() / 3600
-	return ((CaloriesMeanSpeedMultiplier*meanSpeed + CaloriesMeanSpeedShift) * r.Weight / MInKm) * durationInHours * MinInHours
+	durationInHours := r.Duration.Hours()
+	return (CaloriesMeanSpeedMultiplier*meanSpeed + CaloriesMeanSpeedShift) * r.Weight / MInKm * durationInHours * MinInHours
 }
 
 // TrainingInfo возвращает структуру InfoMessage с информацией о проведенной тренировке.
@@ -142,8 +142,8 @@ func (w Walking) Calories() float64 {
 	// вставьте ваш код ниже
 	meanSpeed := w.meanSpeed() * KmHInMsec
 	heightInMeters := w.Height / CmInM
-	durationInHours := w.Duration.Seconds() / 3600
-	return ((CaloriesWeightMultiplier*w.Weight + (math.Pow(meanSpeed, 2)/heightInMeters)*CaloriesSpeedHeightMultiplier*w.Weight) * durationInHours * MinInHours)
+	durationInHours := w.Duration.Hours()
+	return (CaloriesWeightMultiplier*w.Weight + (math.Pow(meanSpeed, 2)/heightInMeters)*CaloriesSpeedHeightMultiplier*w.Weight) * durationInHours * MinInHours
 }
 
 // TrainingInfo возвращает структуру InfoMessage с информацией о проведенной тренировке.
@@ -174,7 +174,7 @@ type Swimming struct {
 // Это переопределенный метод Calories() из Training.
 func (s Swimming) meanSpeed() float64 {
 	// вставьте ваш код ниже
-	durationInHours := s.Duration.Seconds() / 3600
+	durationInHours := s.Duration.Hours()
 	if durationInHours == 0 {
 		return 0
 	}
@@ -188,7 +188,7 @@ func (s Swimming) meanSpeed() float64 {
 func (s Swimming) Calories() float64 {
 	// вставьте ваш код ниже
 	meanSpeed := s.meanSpeed()
-	durationInHours := s.Duration.Seconds() / 3600
+	durationInHours := s.Duration.Hours()
 	return (meanSpeed + SwimmingCaloriesMeanSpeedShift) * SwimmingCaloriesWeightMultiplier * s.Weight * durationInHours
 }
 
